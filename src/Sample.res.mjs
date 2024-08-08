@@ -55,6 +55,17 @@ Firestore.setDoc(specificTodoRef, {
       console.log("Completed " + specificTodoRef.id);
     });
 
+Firestore.getDocs(Firestore.query(todoCollection, Firestore.limit(1))).then(function (querySnapshot) {
+        var qds = querySnapshot.docs[0];
+        if (qds !== undefined) {
+          return Firestore.deleteDoc(qds.ref);
+        } else {
+          return Promise.resolve();
+        }
+      }).then(function () {
+      console.log("Removed a todo");
+    });
+
 export {
   firebaseConfig ,
   app ,

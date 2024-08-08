@@ -48,7 +48,7 @@ addDoc(
 })
 ->Promise.done
 
-// Query all todos
+// Query all todos, the empty array represents no query constraints
 let allTodosQuery = query(todoCollection, [])
 
 getDocs(allTodosQuery)
@@ -86,4 +86,18 @@ setDoc(
   Console.log(`Completed ${specificTodoRef.id}`)
   ()
 })
+->Promise.done
+
+// Query 1 todo via the limit constraint
+query(todoCollection, [limit(1)])
+->Firestore.getDocs
+->Promise.then(querySnapshot => {
+  switch querySnapshot.docs->Array.get(0) {
+  | None => Promise.resolve()
+  | Some(qds) =>
+    // Delete the first document via the reference, assuming the query had results
+    deleteDoc(qds.ref)
+  }
+})
+->Promise.thenResolve(() => Console.log("Removed a todo"))
 ->Promise.done
