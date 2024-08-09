@@ -1,1 +1,0 @@
-/home/nojaf/projects/tenmileselverdinge-tickets/app/src/components/Firebase.res
