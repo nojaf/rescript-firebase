@@ -13,8 +13,16 @@ This project is not complete so I would recommend to just copy the `src/Firebase
 
 If you like, you can install all bindings via
 
-```shell
+```bash
 bun install -D git+https://github.com/nojaf/rescript-firebase.git#5a3a80e670cfe6c8fbada6e51a8660b0d8dbcdaf
+```
+
+Include them in your `rescript.json`:
+
+```json
+{
+  "bs-dependencies": ["@rescript/core", "rescript-firebase"]
+}
 ```
 
 ## Sample
