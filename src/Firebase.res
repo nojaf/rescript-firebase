@@ -15,6 +15,31 @@ module App = {
 }
 
 module Firestore = {
+  @unboxed
+  type firestoreErrorCode =
+    | @as("cancelled") Cancelled
+    | @as("unknown") Unknown
+    | @as("invalid-argument") InvalidArgument
+    | @as("deadline-exceeded") DeadlineExceeded
+    | @as("not-found") NotFound
+    | @as("already-exists") AlreadyExists
+    | @as("permission-denied") PermissionDenied
+    | @as("resource-exhausted") ResourceExhausted
+    | @as("failed-precondition") FailedPrecondition
+    | @as("aborted") Aborted
+    | @as("out-of-range") OutOfRange
+    | @as("unimplemented") Unimplemented
+    | @as("internal") Internal
+    | @as("unavailable") Unavailable
+    | @as("data-loss") DataLoss
+    | @as("unauthenticated") Unauthenticated
+
+  type firestoreError = {
+    code: firestoreErrorCode,
+    message: string,
+    stack: string,
+  }
+
   type firestore
 
   @module("firebase/firestore")
@@ -69,6 +94,22 @@ module Firestore = {
     size: int,
   }
 
+  type documentChangeType =
+    | @as("added") Added
+    | @as("removed") Removed
+    | @as("modified") Modified
+
+  /// https://firebase.google.com/docs/reference/js/firestore_.documentchange.md#documentchange_interface
+  type documentChange<'documentdata> = {
+    @as("type") type_: documentChangeType,
+    doc: queryDocumentSnapshot<'documentdata>,
+  }
+
+  /// https://firebase.google.com/docs/reference/js/firestore_.querysnapshot.md#querysnapshotdocchanges
+  @send
+  external docChanges: querySnapshot<'documentdata> => array<documentChange<'documentdata>> =
+    "docChanges"
+
   /// https://firebase.google.com/docs/reference/js/firestore_.md#getdocs_4e56953
   @module("firebase/firestore")
   external getDocs: query<'kind, 'documentdata> => Promise.t<querySnapshot<'documentdata>> =
@@ -93,7 +134,13 @@ module Firestore = {
     array<queryContraint>,
   ) => query<'kind, 'documentdata> = "query"
 
-  type whereFilterOp = | @as("==") Equals
+  type whereFilterOp =
+    | @as("==") Equals
+    | @as("!=") NotEquals
+    | @as("<") LessThan
+    | @as("<=") LessThanOrEqual
+    | @as(">") GreaterThan
+    | @as(">=") GreaterThanOrEqual
 
   /// https://firebase.google.com/docs/reference/js/firestore_.md#where_0fae4bf
   @module("firebase/firestore")
@@ -115,12 +162,32 @@ module Firestore = {
 
   /// https://firebase.google.com/docs/reference/js/firestore_.md#updatedoc_7c28659
   @module("firebase/firestore")
-  external updateDoc: (documentReference<'documentdata>, string, 'value) => Promise.t<unit> =
+  external updateDoc: (documentReference<'documentdata>, 'documentdata) => Promise.t<unit> =
+    "updateDoc"
+
+  /// https://firebase.google.com/docs/reference/js/firestore_.md#updatedoc_7c28659
+  @module("firebase/firestore")
+  external updateFieldInDoc: (documentReference<'documentdata>, string, 'value) => Promise.t<unit> =
     "updateDoc"
 
   /// https://firebase.google.com/docs/reference/js/firestore_.md#deletedoc_4569087
   @module("firebase/firestore")
   external deleteDoc: documentReference<'documentdata> => Promise.t<unit> = "deleteDoc"
+
+  type snapShotObserver<'documentdata> = {
+    next?: querySnapshot<'documentdata> => unit,
+    error?: firestoreError => unit,
+    complete?: unit => unit,
+  }
+
+  type unsubscribe = unit => unit
+
+  /// https://firebase.google.com/docs/reference/js/firestore_.md#onsnapshot_8d14049
+  @module("firebase/firestore")
+  external onSnapshot: (
+    query<'kind, 'documentdata>,
+    snapShotObserver<'documentdata>,
+  ) => unsubscribe = "onSnapshot"
 
   // https://googleapis.dev/nodejs/firestore/latest/Timestamp.html
   module Timestamp = {
@@ -147,31 +214,9 @@ module Firestore = {
     /// https://firebase.google.com/docs/reference/js/firestore_.timestamp.md#timestamptodate
     @send
     external toDate: t => Date.t = "toDate"
-  }
 
-  @unboxed
-  type firestoreErrorCode =
-    | @as("cancelled") Cancelled
-    | @as("unknown") Unknown
-    | @as("invalid-argument") InvalidArgument
-    | @as("deadline-exceeded") DeadlineExceeded
-    | @as("not-found") NotFound
-    | @as("already-exists") AlreadyExists
-    | @as("permission-denied") PermissionDenied
-    | @as("resource-exhausted") ResourceExhausted
-    | @as("failed-precondition") FailedPrecondition
-    | @as("aborted") Aborted
-    | @as("out-of-range") OutOfRange
-    | @as("unimplemented") Unimplemented
-    | @as("internal") Internal
-    | @as("unavailable") Unavailable
-    | @as("data-loss") DataLoss
-    | @as("unauthenticated") Unauthenticated
-
-  type firestoreError = {
-    code: firestoreErrorCode,
-    message: string,
-    stack: string,
+    @module("firebase/firestore") @scope("Timestamp")
+    external fromDate: Date.t => t = "fromDate"
   }
 }
 

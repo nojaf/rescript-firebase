@@ -80,7 +80,7 @@ setDoc(
 ->Promise.then(() => {
   Console.log(`Created specific todo ${specificTodoRef.id}`)
   // Update a single field in a document
-  updateDoc(specificTodoRef, "completed", true)
+  updateFieldInDoc(specificTodoRef, "completed", true)
 })
 ->Promise.thenResolve(() => {
   Console.log(`Completed ${specificTodoRef.id}`)
