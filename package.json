@@ -3,7 +3,7 @@
   "module": "index.mjs",
   "type": "module",
   "peerDependencies": {
-    "@rescript/core": "1.6.0"
+    "@rescript/core": "^1"
   },
   "devDependencies": {
     "rescript": "11.1.4",
