@@ -21,33 +21,22 @@ module Https = {
   type callableRequest<'t> = {data: 't}
 
   /// https://firebase.google.com/docs/reference/functions/2nd-gen/node/firebase-functions.https.md#httpsoncall
-  @module("firebase-functions/v2/https")
+  @module("firebase-functions/https")
   external onCall: (
     ~opts: callableOptions,
     ~handler: callableRequest<'trequest> => Promise.t<'tresponse>,
   ) => callableFunction<'trequest, 'tresponse> = "onCall"
 
-  // https://github.com/bloodyowl/rescript-express/blob/main/src/Express.res
-  // Express request & response
-  type method = [#GET | #POST | #PUT | #DELETE | #PATCH]
-  type request
-  @get external method: request => method = "method"
-  @get external headers: request => dict<string> = "headers"
-  @get external rawBody: request => string = "rawBody"
-
-  type response
-  @send external send: (response, 'a) => response = "send"
-  @send external sendStatus: (response, int) => response = "sendStatus"
-  @send external status: (response, int) => response = "status"
-
   type httpsFunction
 
   /// https://firebase.google.com/docs/reference/functions/2nd-gen/node/firebase-functions.https.md#httpsonrequest
-  @module("firebase-functions/v2/https")
-  external onRequest: (
-    ~opts: callableOptions,
-    ~handler: (request, response) => Promise.t<unit>,
-  ) => httpsFunction = "onRequest"
+  @module("firebase-functions/https")
+  external onRequest: (~opts: callableOptions, ~handler: Express.handler) => httpsFunction =
+    "onRequest"
+
+  @module("firebase-functions/https")
+  external onRequestApi: (~opts: callableOptions, ~handler: Express.express) => httpsFunction =
+    "onRequest"
 
   /// https://firebase.google.com/docs/reference/functions/2nd-gen/node/firebase-functions.https.httpserror
   module HttpsError = {
@@ -73,7 +62,7 @@ module Https = {
 
     type t
 
-    @module("firebase-functions/v2/https") @new
+    @module("firebase-functions/https") @new
     external make: (~code: functionsErrorCode, ~message: string, ~data: 'data=?) => t = "HttpsError"
 
     external asException: t => Error.t = "%identity"
@@ -103,7 +92,7 @@ module Firestore = {
   }
 
   /// https://firebase.google.com/docs/reference/functions/2nd-gen/node/firebase-functions.firestore.md#firestoreondocumentcreated
-  @module("firebase-functions/v2/firestore")
+  @module("firebase-functions/firestore")
   external onDocumentCreated: (
     ~opts: documentOptions,
     ~handler: firestoreEvent<queryDocumentSnapshot<'documentdata>> => Promise.t<unit>,

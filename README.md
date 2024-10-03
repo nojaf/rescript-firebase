@@ -2,10 +2,10 @@
 
 Firebase bindings for 
 
-- https://www.npmjs.com/package/firebase
-- https://www.npmjs.com/package/firebase-functions
-- https://www.npmjs.com/package/firebase-admin
-- https://www.npmjs.com/package/react-firehooks
+- https://www.npmjs.com/package/firebase (v10+)
+- https://www.npmjs.com/package/firebase-functions (v6+)
+- https://www.npmjs.com/package/firebase-admin (v12+)
+- https://www.npmjs.com/package/react-firehooks (v4+)
 
 ## Installation
 
