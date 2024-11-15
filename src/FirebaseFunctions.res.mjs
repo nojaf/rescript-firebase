@@ -2,25 +2,25 @@
 
 import * as Https from "firebase-functions/https";
 
-var Logger = {};
+let Logger = {};
 
 function raiseFirebaseHttpError(code, message, data) {
   throw new Https.HttpsError(code, message, data);
 }
 
-var HttpsError = {
+let HttpsError = {
   raiseFirebaseHttpError: raiseFirebaseHttpError
 };
 
-var Https$1 = {
+let Https$1 = {
   HttpsError: HttpsError
 };
 
-var Firestore = {};
+let Firestore = {};
 
 export {
-  Logger ,
+  Logger,
   Https$1 as Https,
-  Firestore ,
+  Firestore,
 }
 /* firebase-functions/https Not a pure module */
