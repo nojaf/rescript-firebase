@@ -1,5 +1,5 @@
 {
-  "name": "rescript-firebase",
+  "name": "@nojaf/rescript-firebase",
   "namespace": "Firebase",
   "sources": [
     {
