@@ -34,7 +34,11 @@ let todoCollectionName = "todos"
 
 let todoCollection = collection(store, [todoCollectionName])
 
+let x = todoCollection->Firestore.query([])->Firestore.getDocs
+
 // Create a new table entry
+let r = store->Firestore.doc(todoCollectionName, [])
+let es = store->Firestore.doc("", [])
 
 addDoc(
   todoCollection,
@@ -43,7 +47,10 @@ addDoc(
     completed: false,
   },
 )
-->Promise.thenResolve(ref => {
+->Promise.thenResolve((ref: Firestore.documentReference<todo>) => {
+  let _ = ref
+  // ref.
+  //     ^com
   Console.log(`Created ${ref.id} at ${ref.path}`)
 })
 ->Promise.done

@@ -26,6 +26,12 @@ let todoCollectionName = "todos";
 
 let todoCollection = Firestore.collection(store, todoCollectionName);
 
+let x = Firestore.getDocs(Firestore.query(todoCollection));
+
+let r = Firestore.doc(store, todoCollectionName);
+
+let es = Firestore.doc(store, "");
+
 Firestore.addDoc(todoCollection, {
   description: "Initial todo",
   completed: false
@@ -72,6 +78,9 @@ export {
   store,
   todoCollectionName,
   todoCollection,
+  x,
+  r,
+  es,
   allTodosQuery,
   specificTodoRef,
 }
