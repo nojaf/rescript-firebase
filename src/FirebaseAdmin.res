@@ -187,7 +187,7 @@ module Auth = {
     uid: uid,
     displayName: string,
     email: string,
-    claims?: 'claims,
+    customClaims?: 'claims,
   }
 
   /// https://firebase.google.com/docs/reference/admin/node/firebase-admin.auth.listusersresult.md#listusersresult_interface
