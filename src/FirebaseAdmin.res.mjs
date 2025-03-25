@@ -3,6 +3,8 @@
 
 let App = {};
 
+let Timestamp = {};
+
 let CollectionReference = {};
 
 let QuerySnapshot = {};
@@ -15,18 +17,16 @@ let DocumentSnapshot = {};
 
 let DocumentReference = {};
 
-let Timestamp = {};
-
 let FieldValue = {};
 
 let Firestore = {
+  Timestamp: Timestamp,
   CollectionReference: CollectionReference,
   QuerySnapshot: QuerySnapshot,
   QueryDocumentSnapshot: QueryDocumentSnapshot,
   Query: Query,
   DocumentSnapshot: DocumentSnapshot,
   DocumentReference: DocumentReference,
-  Timestamp: Timestamp,
   FieldValue: FieldValue
 };
 

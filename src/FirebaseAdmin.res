@@ -56,6 +56,23 @@ module Firestore = {
   @send
   external collection: (firestore, string) => collectionReference<'documentdata> = "collection"
 
+  // https://googleapis.dev/nodejs/firestore/latest/Timestamp.html
+  module Timestamp = {
+    type t
+
+    @module("firebase-admin/firestore") @new
+    external make: (~seconds: int, ~nanoseconds: int) => t = "Timestamp"
+
+    @module("firebase-admin/firestore") @scope("Timestamp")
+    external now: unit => t = "now"
+
+    @send
+    external toMillis: t => int = "toMillis"
+
+    @module("firebase-admin/firestore") @scope("Timestamp")
+    external fromDate: Js.Date.t => t = "fromDate"
+  }
+
   module CollectionReference = {
     external asQuery: collectionReference<'documentdata> => query<'documentdata> = "%identity"
 
@@ -120,6 +137,14 @@ module Firestore = {
     /// https://cloud.google.com/nodejs/docs/reference/firestore/latest/firestore/documentsnapshot
     @send
     external data: documentSnapshot<'documentdata> => 'documentdata = "data"
+
+    // https://cloud.google.com/nodejs/docs/reference/firestore/latest/firestore/documentsnapshot#_google_cloud_firestore_DocumentSnapshot_createTime_member
+    @get
+    external createTime: documentSnapshot<'data> => Timestamp.t = "createTime"
+
+    // https://cloud.google.com/nodejs/docs/reference/firestore/latest/firestore/documentsnapshot#_google_cloud_firestore_DocumentSnapshot_updateTime_member
+    @get
+    external updateTime: documentSnapshot<'data> => Timestamp.t = "updateTime"
   }
 
   module DocumentReference = {
@@ -142,23 +167,6 @@ module Firestore = {
     @send
     external update_field: (documentReference<'documentdata>, string, 't) => Promise.t<unit> =
       "update"
-  }
-
-  // https://googleapis.dev/nodejs/firestore/latest/Timestamp.html
-  module Timestamp = {
-    type t
-
-    @module("firebase-admin/firestore") @new
-    external make: (~seconds: int, ~nanoseconds: int) => t = "Timestamp"
-
-    @module("firebase-admin/firestore") @scope("Timestamp")
-    external now: unit => t = "now"
-
-    @send
-    external toMillis: t => int = "toMillis"
-
-    @module("firebase-admin/firestore") @scope("Timestamp")
-    external fromDate: Js.Date.t => t = "fromDate"
   }
 
   module FieldValue = {
