@@ -233,3 +233,28 @@ module Auth = {
   external createUser: (auth<'claims>, createRequest) => Promise.t<userRecord<'claims>> =
     "createUser"
 }
+
+// https://firebase.google.com/docs/reference/admin/node/firebase-admin.storage
+module Storage = {
+  type storage
+
+  @module("firebase-admin/storage")
+  external getStorage: App.app => storage = "getStorage"
+
+  // https://cloud.google.com/nodejs/docs/reference/storage/latest/storage/bucket
+  type bucket
+
+  // https://firebase.google.com/docs/reference/admin/node/firebase-admin.storage.storage.md#storagebucket
+  @send
+  external bucket: (storage, string) => bucket = "bucket"
+
+  // https://cloud.google.com/nodejs/docs/reference/storage/latest/storage/file
+  type file
+
+  // https://cloud.google.com/nodejs/docs/reference/storage/7.0.1/storage/bucket?hl=en#_google_cloud_storage_Bucket_file_member_1_
+  @send
+  external file: (bucket, string) => file = "file"
+
+  @module("firebase-admin/storage")
+  external getDownloadURL: file => promise<string> = "getDownloadURL"
+}

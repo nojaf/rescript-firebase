@@ -32,9 +32,12 @@ let Firestore = {
 
 let Auth = {};
 
+let Storage = {};
+
 export {
   App,
   Firestore,
   Auth,
+  Storage,
 }
 /* No side effect */
