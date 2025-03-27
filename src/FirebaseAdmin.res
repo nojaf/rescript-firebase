@@ -70,7 +70,10 @@ module Firestore = {
     external toMillis: t => int = "toMillis"
 
     @module("firebase-admin/firestore") @scope("Timestamp")
-    external fromDate: Js.Date.t => t = "fromDate"
+    external fromDate: Date.t => t = "fromDate"
+
+    @send
+    external toDate: t => Date.t = "toDate"
   }
 
   module CollectionReference = {
