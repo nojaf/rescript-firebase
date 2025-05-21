@@ -53,7 +53,7 @@ addDoc(
   //     ^com
   Console.log(`Created ${ref.id} at ${ref.path}`)
 })
-->Promise.done
+->Promise.ignore
 
 // Query all todos, the empty array represents no query constraints
 let allTodosQuery = query(todoCollection, [])
@@ -68,7 +68,7 @@ getDocs(allTodosQuery)
     Console.log2(queryDocumentSnapshot.id, todo)
   })
 })
-->Promise.done
+->Promise.ignore
 
 // Create a todo with specific id
 @scope("crypto")
@@ -93,7 +93,7 @@ setDoc(
   Console.log(`Completed ${specificTodoRef.id}`)
   ()
 })
-->Promise.done
+->Promise.ignore
 
 // Query 1 todo via the limit constraint
 query(todoCollection, [limit(1)])
@@ -107,4 +107,4 @@ query(todoCollection, [limit(1)])
   }
 })
 ->Promise.thenResolve(() => Console.log("Removed a todo"))
-->Promise.done
+->Promise.ignore

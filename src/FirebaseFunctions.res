@@ -65,12 +65,12 @@ module Https = {
     @module("firebase-functions/https") @new
     external make: (~code: functionsErrorCode, ~message: string, ~data: 'data=?) => t = "HttpsError"
 
-    external asException: t => Error.t = "%identity"
+    external asException: t => JsError.t = "%identity"
 
     let raiseFirebaseHttpError = (~code: functionsErrorCode, ~message: string, ~data: 'data=?) => {
       make(~code, ~message, ~data)
       ->asException
-      ->Error.raise
+      ->JsError.throw
     }
   }
 }
