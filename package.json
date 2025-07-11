@@ -1,9 +1,9 @@
 {
-  "name": "rescript-firebase",
+  "name":  "@nojaf/rescript-firebase",
   "module": "index.mjs",
   "type": "module",
   "devDependencies": {
-    "rescript": "12.0.0-alpha.13",
+    "rescript": "12.0.0-alpha.15",
     "firebase": "^10.14.0"
   },
   "scripts": {

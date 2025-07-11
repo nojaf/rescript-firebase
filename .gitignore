@@ -178,3 +178,4 @@ dist
 .bsb.lock
 
 .env
+.history
