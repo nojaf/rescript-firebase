@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.2] - 2025-09-18
+
+### Fixed
+
+- Add missing rescript.json to package.
+
 ## [0.1.1] - 2025-09-18
 
 ### Fixed
