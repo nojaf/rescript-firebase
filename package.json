@@ -1,7 +1,26 @@
 {
   "name": "@nojaf/rescript-firebase",
+  "author": "Florian Verdonck",
+  "description": "Firebase bindings for ReScript 12",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nojaf/rescript-firebase"
+  },
+  "homepage": "https://github.com/nojaf/rescript-firebase",
+  "keywords": [
+    "rescript",
+    "firebase"
+  ],
+  "bugs": {
+    "url": "https://github.com/nojaf/rescript-firebase/issues"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "main": "index.mjs",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "devDependencies": {
     "@types/bun": "latest",
     "firebase": "^10.14.0",
