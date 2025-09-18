@@ -36,29 +36,29 @@ Firestore.addDoc(todoCollection, {
   description: "Initial todo",
   completed: false
 }).then(ref => {
-  console.log("Created " + ref.id + " at " + ref.path);
+  console.log(`Created ` + ref.id + ` at ` + ref.path);
 });
 
 let allTodosQuery = Firestore.query(todoCollection);
 
 Firestore.getDocs(allTodosQuery).then(querySnapshot => {
-  console.log("Found " + querySnapshot.size.toString() + " todos");
+  console.log(`Found ` + querySnapshot.size.toString() + ` todos`);
   querySnapshot.docs.forEach(queryDocumentSnapshot => {
     let todo = queryDocumentSnapshot.data();
     console.log(queryDocumentSnapshot.id, todo);
   });
 });
 
-let specificTodoRef = Firestore.doc(store, todoCollectionName, "todo-" + crypto.randomUUID());
+let specificTodoRef = Firestore.doc(store, todoCollectionName, `todo-` + crypto.randomUUID());
 
 Firestore.setDoc(specificTodoRef, {
   description: "specific todo",
   completed: false
 }).then(() => {
-  console.log("Created specific todo " + specificTodoRef.id);
+  console.log(`Created specific todo ` + specificTodoRef.id);
   return Firestore.updateDoc(specificTodoRef, "completed", true);
 }).then(() => {
-  console.log("Completed " + specificTodoRef.id);
+  console.log(`Completed ` + specificTodoRef.id);
 });
 
 Firestore.getDocs(Firestore.query(todoCollection, Firestore.limit(1))).then(querySnapshot => {
