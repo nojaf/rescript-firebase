@@ -8,7 +8,7 @@
     {
       "dir": "sample",
       "subdirs": true,
-      "dev": true
+      "type": "dev"
     }
   ],
   "package-specs": {
