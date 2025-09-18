@@ -1,4 +1,4 @@
-![NPM Version](https://img.shields.io/npm/v/%40nojaf%2Frescript-firebase)
+[![NPM Version](https://img.shields.io/npm/v/%40nojaf%2Frescript-firebase)](https://www.npmjs.com/package/@nojaf/rescript-firebase)
 
 # ReScript Firebase
 
