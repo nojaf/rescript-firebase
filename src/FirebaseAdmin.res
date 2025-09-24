@@ -1,4 +1,5 @@
 module App = {
+  @editor.completeFrom([Firestore, Auth, Storage])
   type app
 
   type appConfig = {

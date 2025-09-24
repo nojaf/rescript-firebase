@@ -1,3 +1,4 @@
+@editor.completeFrom(App)
 type config = {
   apiKey: string,
   authDomain: string,
@@ -8,6 +9,7 @@ type config = {
 }
 
 module App = {
+  @editor.completeFrom([Firestore, Functions, Auth])
   type app
 
   @module("firebase/app")
