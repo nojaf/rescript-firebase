@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.4] - 2025-09-24
+
+### Added
+
+- `@editor.completeFrom` to Firebase and FirebaseAdmin types.
+
 ## [0.1.3] - 2025-09-18
 
 ### Fixed
