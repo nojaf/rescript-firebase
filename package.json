@@ -20,29 +20,26 @@
   },
   "main": "index.mjs",
   "type": "module",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "devDependencies": {
     "@types/bun": "latest",
     "firebase": "^10.14.0",
     "keep-a-changelog": "^2.7.1",
     "prettier": "^3.6.2",
-    "rescript": ">=12.0.0-rc.0 <13",
+    "rescript": ">=12.0.0 <13",
     "semver": "^7.7.2",
     "typescript": "^5"
   },
   "peerDependencies": {
     "firebase": "^10.14.0",
-    "rescript": ">=12.0.0-rc.0 <13"
+    "rescript": ">=12.0.0 <13"
   },
   "scripts": {
     "res:build": "rescript",
     "res:clean": "rescript clean",
-    "res:dev": "rescript -w",
+    "res:dev": "rescript watch",
     "start": "bun res:build && bun sample/Sample.res.mjs"
   },
-  "trustedDependencies": [
-    "rescript"
-  ],
   "dependencies": {},
   "files": [
     "src/*.res",
