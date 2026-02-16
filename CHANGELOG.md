@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.1] - 2026-02-16
+
+### Changed
+
+- Widened `firebase` peer dependency to `>=11.0.0 <13`.
+
 ## [0.2.0] - 2026-02-16
 
 ### Changed
