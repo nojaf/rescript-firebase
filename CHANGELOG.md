@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.0] - 2026-02-16
+
+### Changed
+
+- Updated bindings for Firebase JS SDK v12.9.
+- Fixed `Auth.config` type to use the actual Firebase `Config` interface instead of reusing `FirebaseOptions`.
+- Fixed `User.displayName` and `User.email` to be `Null.t<string>` (nullable).
+- Fixed `DocumentSnapshot.data` return type from `Nullable.t` to `option` (returns `undefined`, not `null`).
+
+### Added
+
+- Added missing `WhereFilterOp` variants: `ArrayContains`, `In`, `ArrayContainsAny`, `NotIn`.
+
 ## [0.1.6] - 2025-11-27
 
 ### Changed

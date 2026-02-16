@@ -4,7 +4,7 @@
 
 Firebase bindings for
 
-- https://www.npmjs.com/package/firebase (v10+)
+- https://www.npmjs.com/package/firebase (v12.9+)
 - https://www.npmjs.com/package/firebase-functions (v6+)
 - https://www.npmjs.com/package/firebase-admin (v12+)
 - https://www.npmjs.com/package/react-firehooks (v4+)

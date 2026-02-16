@@ -81,7 +81,7 @@ module Firestore = {
 
   /// https://firebase.google.com/docs/reference/js/firestore_.documentsnapshot.md#documentsnapshotdata
   @send
-  external data_ds: documentSnapshot<'documentdata> => Nullable.t<'documentdata> = "data"
+  external data_ds: documentSnapshot<'documentdata> => option<'documentdata> = "data"
 
   ///https://firebase.google.com/docs/reference/js/firestore_.querydocumentsnapshot.md#querydocumentsnapshot_class
   type queryDocumentSnapshot<'documentdata> = {
@@ -143,6 +143,10 @@ module Firestore = {
     | @as("<=") LessThanOrEqual
     | @as(">") GreaterThan
     | @as(">=") GreaterThanOrEqual
+    | @as("array-contains") ArrayContains
+    | @as("in") In
+    | @as("array-contains-any") ArrayContainsAny
+    | @as("not-in") NotIn
 
   /// https://firebase.google.com/docs/reference/js/firestore_.md#where_0fae4bf
   @module("firebase/firestore")
@@ -150,7 +154,7 @@ module Firestore = {
 
   /**
     Adds a new document to a collection.
-    https://firebase.google.com/docs/reference/js/firestore_#adddoc_6e783ff 
+    https://firebase.google.com/docs/reference/js/firestore_#adddoc_6e783ff
  */
   @module("firebase/firestore")
   external addDoc: (
@@ -247,10 +251,20 @@ module Functions = {
 
 module Auth = {
   /// https://firebase.google.com/docs/reference/js/auth.user.md#user_interface
-  type user = {displayName: string, email: string, uid: string}
+  type user = {displayName: Null.t<string>, email: Null.t<string>, uid: string}
+
+  /// https://firebase.google.com/docs/reference/js/auth.config
+  type authConfig = {
+    apiKey: string,
+    apiHost: string,
+    apiScheme: string,
+    tokenApiHost: string,
+    sdkClientVersion: string,
+    authDomain?: string,
+  }
 
   /// https://firebase.google.com/docs/reference/js/auth.auth
-  type auth = {app: App.app, config: config, currentUser: Null.t<user>}
+  type auth = {app: App.app, config: authConfig, currentUser: Null.t<user>}
 
   /// https://firebase.google.com/docs/reference/js/auth.md#getauth_cf608e1
   @module("firebase/auth")
