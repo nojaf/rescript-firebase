@@ -11,12 +11,15 @@ let Firestore = {
 
 let Functions = {};
 
+let Storage = {};
+
 let Auth = {};
 
 export {
   App,
   Firestore,
   Functions,
+  Storage,
   Auth,
 }
 /* No side effect */

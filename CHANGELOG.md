@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.0] - 2026-02-16
+
+### Added
+
+- Added `Storage` module with bindings for `firebase/storage`: `getStorage`, `ref`, `uploadString`, `getDownloadURL`, `deleteObject`, and `connectStorageEmulator`.
+
 ## [0.2.1] - 2026-02-16
 
 ### Changed

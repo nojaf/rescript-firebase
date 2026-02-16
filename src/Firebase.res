@@ -9,7 +9,7 @@ type config = {
 }
 
 module App = {
-  @editor.completeFrom([Firestore, Functions, Auth])
+  @editor.completeFrom([Firestore, Functions, Auth, Storage])
   type app
 
   @module("firebase/app")
@@ -247,6 +247,52 @@ module Functions = {
   @module("firebase/functions")
   external httpsCallable: (functions, ~name: string) => httpsCallable<'requestData, 'responseData> =
     "httpsCallable"
+}
+
+module Storage = {
+  /// https://firebase.google.com/docs/reference/js/storage.firebasestorage
+  type storage
+
+  /// https://firebase.google.com/docs/reference/js/storage.storagereference
+  type storageReference
+
+  /// https://firebase.google.com/docs/reference/js/storage.uploadresult
+  type uploadResult = {ref: storageReference}
+
+  @unboxed
+  type stringFormat =
+    | @as("raw") Raw
+    | @as("base64") Base64
+    | @as("base64url") Base64url
+    | @as("data_url") DataUrl
+
+  /// https://firebase.google.com/docs/reference/js/storage.md#getstorage
+  @module("firebase/storage")
+  external getStorage: App.app => storage = "getStorage"
+
+  /// https://firebase.google.com/docs/reference/js/storage.md#connectstorageemulator
+  @module("firebase/storage")
+  external connectStorageEmulator: (storage, string, int) => unit = "connectStorageEmulator"
+
+  /// https://firebase.google.com/docs/reference/js/storage.md#ref
+  @module("firebase/storage")
+  external ref: (storage, string) => storageReference = "ref"
+
+  /// https://firebase.google.com/docs/reference/js/storage.md#uploadstring
+  @module("firebase/storage")
+  external uploadString: (
+    storageReference,
+    string,
+    ~format: stringFormat=?,
+  ) => Promise.t<uploadResult> = "uploadString"
+
+  /// https://firebase.google.com/docs/reference/js/storage.md#getdownloadurl
+  @module("firebase/storage")
+  external getDownloadURL: storageReference => Promise.t<string> = "getDownloadURL"
+
+  /// https://firebase.google.com/docs/reference/js/storage.md#deleteobject
+  @module("firebase/storage")
+  external deleteObject: storageReference => Promise.t<unit> = "deleteObject"
 }
 
 module Auth = {
