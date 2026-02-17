@@ -11,7 +11,11 @@ let Firestore = {
 
 let Functions = {};
 
-let Storage = {};
+let UploadTask = {};
+
+let Storage = {
+  UploadTask: UploadTask
+};
 
 let Auth = {};
 

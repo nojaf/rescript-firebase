@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.0] - 2026-02-17
+
+### Added
+
+- Added `Firebase.Storage.listResult`, `Firebase.Storage.listOptions`, `Firebase.Storage.taskState` types.
+- Added `Firebase.Storage.UploadTask` module with `snapshot` type, `cancel`, `pause`, `resume`, `on`, `then`.
+- Added `Firebase.Storage` functions: `uploadBytes`, `uploadBytesResumable`, `getBlob`, `getBytes`, `getStream`, `getMetadata`, `updateMetadata`, `list`, `listAll`.
+
+### Changed
+
+- `Firebase.Storage.uploadResult` now includes `metadata` field.
+
 ## [0.4.0] - 2026-02-17
 
 ### Added

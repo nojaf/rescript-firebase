@@ -262,9 +262,6 @@ module Storage = {
   /// https://firebase.google.com/docs/reference/js/storage.storagereference
   type storageReference
 
-  /// https://firebase.google.com/docs/reference/js/storage.uploadresult
-  type uploadResult = {ref: storageReference}
-
   @unboxed
   type stringFormat =
     | @as("raw") Raw
@@ -318,6 +315,66 @@ module Storage = {
     updated: string,
   }
 
+  /// https://firebase.google.com/docs/reference/js/storage.uploadresult
+  type uploadResult = {metadata: fullMetadata, ref: storageReference}
+
+  /// https://firebase.google.com/docs/reference/js/storage.listresult
+  type listResult = {
+    prefixes: array<storageReference>,
+    items: array<storageReference>,
+    nextPageToken?: string,
+  }
+
+  /// https://firebase.google.com/docs/reference/js/storage.listoptions
+  type listOptions = {
+    maxResults?: int,
+    pageToken?: string,
+  }
+
+  @unboxed
+  type taskState =
+    | @as("running") Running
+    | @as("paused") Paused
+    | @as("success") Success
+    | @as("canceled") Canceled
+    | @as("error") Error
+
+  /// https://firebase.google.com/docs/reference/js/storage.uploadtask
+  module UploadTask = {
+    type t
+
+    /// https://firebase.google.com/docs/reference/js/storage.uploadtasksnapshot
+    type snapshot = {
+      bytesTransferred: int,
+      metadata: fullMetadata,
+      ref: storageReference,
+      state: taskState,
+      task: t,
+      totalBytes: int,
+    }
+
+    @send external cancel: t => bool = "cancel"
+    @send external pause: t => bool = "pause"
+    @send external resume: t => bool = "resume"
+    @get external snapshot: t => snapshot = "snapshot"
+
+    @send
+    external on: (
+      t,
+      @as("state_changed") _,
+      ~next: snapshot => unit=?,
+      ~error: storageError => unit=?,
+      ~complete: unit => unit=?,
+    ) => unit => unit = "on"
+
+    @send
+    external then: (
+      t,
+      ~onFulfilled: snapshot => 'a=?,
+      ~onRejected: storageError => 'b=?,
+    ) => Promise.t<'a> = "then"
+  }
+
   /// https://firebase.google.com/docs/reference/js/storage.md#getstorage
   @module("firebase/storage")
   external getStorage: App.app => storage = "getStorage"
@@ -338,9 +395,47 @@ module Storage = {
     ~format: stringFormat=?,
   ) => Promise.t<uploadResult> = "uploadString"
 
+  /// https://firebase.google.com/docs/reference/js/storage.md#uploadbytes
+  @module("firebase/storage")
+  external uploadBytes: (storageReference, 'data) => Promise.t<uploadResult> = "uploadBytes"
+
+  /// https://firebase.google.com/docs/reference/js/storage.md#uploadbytesresumable
+  @module("firebase/storage")
+  external uploadBytesResumable: (storageReference, 'data) => UploadTask.t = "uploadBytesResumable"
+
   /// https://firebase.google.com/docs/reference/js/storage.md#getdownloadurl
   @module("firebase/storage")
   external getDownloadURL: storageReference => Promise.t<string> = "getDownloadURL"
+
+  /// https://firebase.google.com/docs/reference/js/storage.md#getblob
+  @module("firebase/storage")
+  external getBlob: (storageReference, ~maxDownloadSizeBytes: int=?) => Promise.t<'blob> = "getBlob"
+
+  /// https://firebase.google.com/docs/reference/js/storage.md#getbytes
+  @module("firebase/storage")
+  external getBytes: (storageReference, ~maxDownloadSizeBytes: int=?) => Promise.t<'bytes> =
+    "getBytes"
+
+  /// https://firebase.google.com/docs/reference/js/storage.md#getstream
+  @module("firebase/storage")
+  external getStream: (storageReference, ~maxDownloadSizeBytes: int=?) => 'stream = "getStream"
+
+  /// https://firebase.google.com/docs/reference/js/storage.md#getmetadata
+  @module("firebase/storage")
+  external getMetadata: storageReference => Promise.t<fullMetadata> = "getMetadata"
+
+  /// https://firebase.google.com/docs/reference/js/storage.md#updatemetadata
+  @module("firebase/storage")
+  external updateMetadata: (storageReference, fullMetadata) => Promise.t<fullMetadata> =
+    "updateMetadata"
+
+  /// https://firebase.google.com/docs/reference/js/storage.md#list
+  @module("firebase/storage")
+  external list: (storageReference, ~options: listOptions=?) => Promise.t<listResult> = "list"
+
+  /// https://firebase.google.com/docs/reference/js/storage.md#listall
+  @module("firebase/storage")
+  external listAll: storageReference => Promise.t<listResult> = "listAll"
 
   /// https://firebase.google.com/docs/reference/js/storage.md#deleteobject
   @module("firebase/storage")
