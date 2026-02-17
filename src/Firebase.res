@@ -8,6 +8,12 @@ type config = {
   appId: string,
 }
 
+/// https://firebase.google.com/docs/reference/js/app.firebaseerror
+type firebaseError = {
+  message: string,
+  name: string,
+}
+
 module App = {
   @editor.completeFrom([Firestore, Functions, Auth, Storage])
   type app
@@ -37,8 +43,8 @@ module Firestore = {
     | @as("unauthenticated") Unauthenticated
 
   type firestoreError = {
+    ...firebaseError,
     code: firestoreErrorCode,
-    message: string,
     stack: string,
   }
 
@@ -266,6 +272,52 @@ module Storage = {
     | @as("base64url") Base64url
     | @as("data_url") DataUrl
 
+  @unboxed
+  type storageErrorCode =
+    | @as("storage/unknown") Unknown
+    | @as("storage/object-not-found") ObjectNotFound
+    | @as("storage/bucket-not-found") BucketNotFound
+    | @as("storage/project-not-found") ProjectNotFound
+    | @as("storage/quota-exceeded") QuotaExceeded
+    | @as("storage/unauthenticated") Unauthenticated
+    | @as("storage/unauthorized") Unauthorized
+    | @as("storage/unauthorized-app") UnauthorizedApp
+    | @as("storage/retry-limit-exceeded") RetryLimitExceeded
+    | @as("storage/invalid-checksum") InvalidChecksum
+    | @as("storage/canceled") Canceled
+    | @as("storage/invalid-event-name") InvalidEventName
+    | @as("storage/invalid-url") InvalidUrl
+    | @as("storage/invalid-default-bucket") InvalidDefaultBucket
+    | @as("storage/no-default-bucket") NoDefaultBucket
+    | @as("storage/cannot-slice-blob") CannotSliceBlob
+    | @as("storage/server-file-wrong-size") ServerFileWrongSize
+    | @as("storage/no-download-url") NoDownloadUrl
+    | @as("storage/invalid-argument") InvalidArgument
+    | @as("storage/invalid-argument-count") InvalidArgumentCount
+    | @as("storage/app-deleted") AppDeleted
+    | @as("storage/invalid-root-operation") InvalidRootOperation
+    | @as("storage/invalid-format") InvalidFormat
+    | @as("storage/internal-error") InternalError
+    | @as("storage/unsupported-environment") UnsupportedEnvironment
+
+  /// https://firebase.google.com/docs/reference/js/storage.storageerror
+  type storageError = {
+    ...firebaseError,
+    code: storageErrorCode,
+  }
+
+  /// https://firebase.google.com/docs/reference/js/storage.fullmetadata
+  type fullMetadata = {
+    bucket: string,
+    fullPath: string,
+    generation: string,
+    metageneration: string,
+    name: string,
+    size: int,
+    timeCreated: string,
+    updated: string,
+  }
+
   /// https://firebase.google.com/docs/reference/js/storage.md#getstorage
   @module("firebase/storage")
   external getStorage: App.app => storage = "getStorage"
@@ -307,6 +359,12 @@ module Auth = {
     tokenApiHost: string,
     sdkClientVersion: string,
     authDomain?: string,
+  }
+
+  /// https://firebase.google.com/docs/reference/js/auth.autherror
+  type authError = {
+    ...firebaseError,
+    code: string,
   }
 
   /// https://firebase.google.com/docs/reference/js/auth.auth

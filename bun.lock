@@ -9,12 +9,13 @@
         "firebase": "^12.9.0",
         "keep-a-changelog": "^2.7.1",
         "prettier": "^3.6.2",
+        "react-firehooks": "^4.3.0",
         "rescript": ">=12.0.0 <13",
         "semver": "^7.7.2",
         "typescript": "^5",
       },
       "peerDependencies": {
-        "firebase": "^10.14.0",
+        "firebase": ">=11.0.0 <13",
         "rescript": ">=12.0.0 <13",
       },
     },
@@ -195,6 +196,10 @@
     "prettier": ["prettier@3.6.2", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ=="],
 
     "protobufjs": ["protobufjs@7.4.0", "", { "dependencies": { "@protobufjs/aspromise": "^1.1.2", "@protobufjs/base64": "^1.1.2", "@protobufjs/codegen": "^2.0.4", "@protobufjs/eventemitter": "^1.1.0", "@protobufjs/fetch": "^1.1.0", "@protobufjs/float": "^1.0.2", "@protobufjs/inquire": "^1.1.0", "@protobufjs/path": "^1.1.2", "@protobufjs/pool": "^1.1.0", "@protobufjs/utf8": "^1.1.0", "@types/node": ">=13.7.0", "long": "^5.0.0" } }, "sha512-mRUWCc3KUU4w1jU8sGxICXH/gNS94DvI1gxqDvBzhj1JpcsimQkYiOJfwsPUykUI5ZaspFbSgmBLER8IrQ3tqw=="],
+
+    "react": ["react@19.2.4", "", {}, "sha512-9nfp2hYpCwOjAN+8TZFGhtWEwgvWHXqESH8qT89AT/lWklpLON22Lc8pEtnpsZz7VmawabSU0gCjnj8aC0euHQ=="],
+
+    "react-firehooks": ["react-firehooks@4.3.0", "", { "peerDependencies": { "firebase": "^10.5.0 || ^11.0.0 || ^12.0.0", "react": ">=16.8.0" } }, "sha512-7zSgYJw4Z9w87Nr9wlIgQqxvp7Oh3V9s9EK9SoClmMvDTbGvDtenGz+KKWmSCqq2enz0HA80/QUytabkEqqj5w=="],
 
     "require-directory": ["require-directory@2.1.1", "", {}, "sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q=="],
 

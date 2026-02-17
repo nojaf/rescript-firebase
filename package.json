@@ -20,7 +20,7 @@
   },
   "main": "index.mjs",
   "type": "module",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "devDependencies": {
     "@types/bun": "latest",
     "firebase": "^12.9.0",
@@ -28,7 +28,8 @@
     "prettier": "^3.6.2",
     "rescript": ">=12.0.0 <13",
     "semver": "^7.7.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "react-firehooks": "^4.3.0"
   },
   "peerDependencies": {
     "firebase": ">=11.0.0 <13",
@@ -40,7 +41,6 @@
     "res:dev": "rescript watch",
     "start": "bun res:build && bun sample/Sample.res.mjs"
   },
-  "dependencies": {},
   "files": [
     "src/*.res",
     "rescript.json"

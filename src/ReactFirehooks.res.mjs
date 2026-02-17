@@ -3,10 +3,13 @@
 
 let Firestore = {};
 
+let Storage = {};
+
 let Auth = {};
 
 export {
   Firestore,
+  Storage,
   Auth,
 }
 /* No side effect */

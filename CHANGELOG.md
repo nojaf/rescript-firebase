@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.4.0] - 2026-02-17
+
+### Added
+
+- Added `ReactFirehooks.Firestore` bindings: `useDocument`, `useDocumentData`, `useDocumentOnce`, `useDocumentDataOnce`, `useQueryOnce`, `useQueryDataOnce`, `useQueriesData`, `useQueriesOnce`, `useQueriesDataOnce`.
+- Added `ReactFirehooks.Storage` module with bindings: `useDownloadURL`, `useMetadata`, `useBlob`, `useBytes`.
+- Added `Firebase.firebaseError` base record type.
+- Added `Firebase.Storage.storageErrorCode` variant and `Firebase.Storage.storageError` type (spreads `firebaseError`).
+- Added `Firebase.Storage.fullMetadata` type.
+- Added `Firebase.Auth.authError` type (spreads `firebaseError`).
+
+### Changed
+
+- `Firebase.Firestore.firestoreError` now spreads `firebaseError` (adds `name` field).
+
+### Fixed
+
+- Fixed `ReactFirehooks.Auth.useAuthState` error type from `firestoreError` to `authError`.
+
 ## [0.3.0] - 2026-02-16
 
 ### Added
