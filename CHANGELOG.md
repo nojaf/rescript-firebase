@@ -21,7 +21,7 @@
 - **Breaking:** `FirebaseAdmin.Firestore.DocumentSnapshot.data` now returns `option<'documentdata>`.
 - `FirebaseAdmin.Storage.getDownloadURL` return type fixed from `promise<string>` to `Promise.t<string>`.
 
-### Added (FirebaseAdmin)
+### Added
 
 - `FirebaseAdmin.App`: `getApp`, `deleteApp`.
 - `FirebaseAdmin.Firestore`: `whereFilterOp`, `orderByDirection`, `setOptions`, `WriteResult`, `WriteBatch`, `Transaction` modules.
