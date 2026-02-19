@@ -1,5 +1,43 @@
 # Changelog
 
+## [0.6.0] - 2026-02-19
+
+### Added
+
+- Added `Firebase.Storage.uploadMetadata` type with optional fields (`cacheControl`, `contentDisposition`, `contentEncoding`, `contentLanguage`, `contentType`, `md5Hash`).
+- Added `~metadata: uploadMetadata=?` parameter to `Firebase.Storage.uploadString`, `uploadBytes`, and `uploadBytesResumable`.
+- Added `cacheControl`, `contentDisposition`, `contentEncoding`, `contentLanguage`, `contentType`, `customMetadata`, `md5Hash` optional fields to `Firebase.Storage.fullMetadata`.
+
+### Changed
+
+- **Breaking:** `FirebaseAdmin.App.appConfig` renamed to `appOptions` with correct admin SDK fields (`credential?`, `projectId?`, `storageBucket?`, `databaseURL?`, `serviceAccountId?`).
+- **Breaking:** `FirebaseAdmin.App.serviceAccountPathOrObject` replaced with typed `serviceAccount` record (`projectId?`, `clientEmail?`, `privateKey?`).
+- **Breaking:** `FirebaseAdmin.Auth.userRecord` fields `email` and `displayName` are now optional; added `emailVerified`, `photoURL`, `phoneNumber`, `disabled` fields.
+- **Breaking:** `FirebaseAdmin.Auth.createRequest` fields are now all optional; added `uid?`, `emailVerified?`, `phoneNumber?`, `photoURL?`, `disabled?`.
+- **Breaking:** `FirebaseAdmin.Auth.listUsersResult.pageToken` is now optional.
+- **Breaking:** `FirebaseAdmin.Firestore.opString` replaced with `whereFilterOp` (full set of operators).
+- **Breaking:** `FirebaseAdmin.Firestore.DocumentReference.update` and `update_field` now return `Promise.t<WriteResult.t>` instead of `Promise.t<unit>`.
+- **Breaking:** `FirebaseAdmin.Firestore.DocumentReference.get` no longer takes a `unit` parameter.
+- **Breaking:** `FirebaseAdmin.Firestore.DocumentSnapshot.data` now returns `option<'documentdata>`.
+- `FirebaseAdmin.Storage.getDownloadURL` return type fixed from `promise<string>` to `Promise.t<string>`.
+
+### Added (FirebaseAdmin)
+
+- `FirebaseAdmin.App`: `getApp`, `deleteApp`.
+- `FirebaseAdmin.Firestore`: `whereFilterOp`, `orderByDirection`, `setOptions`, `WriteResult`, `WriteBatch`, `Transaction` modules.
+- `FirebaseAdmin.Firestore`: `doc`, `collectionGroup`, `batch`, `runTransaction` on `firestore` instance.
+- `FirebaseAdmin.Firestore.Query`: `orderBy`, `limit`, `limitToLast`, `offset`, `startAt`, `startAfter`, `endBefore`, `endAt`, `select`, `onSnapshot`.
+- `FirebaseAdmin.Firestore.DocumentReference`: `path`, `set`, `setWithOptions`, `create`, `delete`, `collection`, `onSnapshot`.
+- `FirebaseAdmin.Firestore.CollectionReference`: `id`, `path`.
+- `FirebaseAdmin.Firestore.QueryDocumentSnapshot`: `id`.
+- `FirebaseAdmin.Firestore.QuerySnapshot`: `readTime`.
+- `FirebaseAdmin.Firestore.DocumentSnapshot`: `readTime`.
+- `FirebaseAdmin.Firestore.FieldValue`: `serverTimestamp`, `increment`, `arrayUnion`, `arrayRemove`.
+- `FirebaseAdmin.Firestore.Timestamp`: `fromMillis`, `seconds`, `nanoseconds`.
+- `FirebaseAdmin.Auth`: `updateRequest`, `decodedIdToken`, `deleteUsersResult` types.
+- `FirebaseAdmin.Auth`: `getUser`, `getUserByPhoneNumber`, `updateUser`, `deleteUser`, `deleteUsers`, `verifyIdToken`, `createCustomToken`, `revokeRefreshTokens`.
+- `FirebaseAdmin.Storage`: `bucketDefault`, `fileName`, `save`, `deleteFile`, `exists`, `getMetadata`, `setMetadata`.
+
 ## [0.5.0] - 2026-02-17
 
 ### Added

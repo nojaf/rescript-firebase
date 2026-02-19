@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:firebase.google.com)",
+      "mcp__acp__Bash",
+      "mcp__acp__Edit",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "mcp__acp__Write",
+      "Bash(npx rescript build:*)",
+      "Skill(commit-msg)",
+      "Skill(commit-msg:*)"
+    ]
+  }
+}

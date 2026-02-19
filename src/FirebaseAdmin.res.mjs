@@ -3,6 +3,12 @@
 
 let App = {};
 
+let WriteResult = {};
+
+let WriteBatch = {};
+
+let Transaction = {};
+
 let Timestamp = {};
 
 let CollectionReference = {};
@@ -20,6 +26,9 @@ let DocumentReference = {};
 let FieldValue = {};
 
 let Firestore = {
+  WriteResult: WriteResult,
+  WriteBatch: WriteBatch,
+  Transaction: Transaction,
   Timestamp: Timestamp,
   CollectionReference: CollectionReference,
   QuerySnapshot: QuerySnapshot,

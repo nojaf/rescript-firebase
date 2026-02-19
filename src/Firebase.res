@@ -303,6 +303,16 @@ module Storage = {
     code: storageErrorCode,
   }
 
+  /// https://firebase.google.com/docs/reference/js/storage.uploadmetadata
+  type uploadMetadata = {
+    cacheControl?: string,
+    contentDisposition?: string,
+    contentEncoding?: string,
+    contentLanguage?: string,
+    contentType?: string,
+    md5Hash?: string,
+  }
+
   /// https://firebase.google.com/docs/reference/js/storage.fullmetadata
   type fullMetadata = {
     bucket: string,
@@ -313,6 +323,13 @@ module Storage = {
     size: int,
     timeCreated: string,
     updated: string,
+    cacheControl?: string,
+    contentDisposition?: string,
+    contentEncoding?: string,
+    contentLanguage?: string,
+    contentType?: string,
+    customMetadata?: Dict.t<string>,
+    md5Hash?: string,
   }
 
   /// https://firebase.google.com/docs/reference/js/storage.uploadresult
@@ -393,15 +410,24 @@ module Storage = {
     storageReference,
     string,
     ~format: stringFormat=?,
+    ~metadata: uploadMetadata=?,
   ) => Promise.t<uploadResult> = "uploadString"
 
   /// https://firebase.google.com/docs/reference/js/storage.md#uploadbytes
   @module("firebase/storage")
-  external uploadBytes: (storageReference, 'data) => Promise.t<uploadResult> = "uploadBytes"
+  external uploadBytes: (
+    storageReference,
+    'data,
+    ~metadata: uploadMetadata=?,
+  ) => Promise.t<uploadResult> = "uploadBytes"
 
   /// https://firebase.google.com/docs/reference/js/storage.md#uploadbytesresumable
   @module("firebase/storage")
-  external uploadBytesResumable: (storageReference, 'data) => UploadTask.t = "uploadBytesResumable"
+  external uploadBytesResumable: (
+    storageReference,
+    'data,
+    ~metadata: uploadMetadata=?,
+  ) => UploadTask.t = "uploadBytesResumable"
 
   /// https://firebase.google.com/docs/reference/js/storage.md#getdownloadurl
   @module("firebase/storage")
@@ -426,7 +452,7 @@ module Storage = {
 
   /// https://firebase.google.com/docs/reference/js/storage.md#updatemetadata
   @module("firebase/storage")
-  external updateMetadata: (storageReference, fullMetadata) => Promise.t<fullMetadata> =
+  external updateMetadata: (storageReference, uploadMetadata) => Promise.t<fullMetadata> =
     "updateMetadata"
 
   /// https://firebase.google.com/docs/reference/js/storage.md#list
