@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.11.0] - 2026-02-27
+
+### Added
+
+- `FirebaseAdmin.Messaging`: `fcmOptions`, `baseMessage`, `tokenMessage`, `topicMessage`, `conditionMessage` types.
+- `FirebaseAdmin.Messaging`: `sendTokenMessage`, `sendTopicMessage`, `sendConditionMessage` overloads (all bind to `send`).
+
+### Changed
+
+- **Breaking:** `FirebaseAdmin.Messaging.message` replaced with `tokenMessage`, `topicMessage`, `conditionMessage` using record spread from `baseMessage`.
+- **Breaking:** `FirebaseAdmin.Messaging.send` replaced with typed `sendTokenMessage`, `sendTopicMessage`, `sendConditionMessage`.
+- **Breaking:** `FirebaseAdmin.Messaging.notification` fields `title` and `body` are now optional; `icon` replaced with `imageUrl`.
+
 ## [0.10.0] - 2026-02-27
 
 ### Added

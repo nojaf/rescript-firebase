@@ -10,7 +10,8 @@
       "Bash(npx rescript build:*)",
       "Skill(commit-msg)",
       "Skill(commit-msg:*)",
-      "Bash(npx rescript:*)"
+      "Bash(npx rescript:*)",
+      "Bash(gh pr view --json number,headRepository)"
     ]
   }
 }

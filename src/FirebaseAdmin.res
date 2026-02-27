@@ -512,15 +512,32 @@ module Messaging = {
   type messaging
 
   type notification = {
-    title: string,
-    body: string,
+    title?: string,
+    body?: string,
+    imageUrl?: string,
   }
 
-  type message = {
-    notification: notification,
-    token?: string,
-    topic?: string,
+  type fcmOptions = {analyticsLabel?: string}
+
+  type baseMessage = {
+    notification?: notification,
     data?: dict<string>,
+    fcmOptions?: fcmOptions,
+  }
+
+  type tokenMessage = {
+    ...baseMessage,
+    token: string,
+  }
+
+  type topicMessage = {
+    ...baseMessage,
+    topic: string,
+  }
+
+  type conditionMessage = {
+    ...baseMessage,
+    condition: string,
   }
 
   type batchResponse = {
@@ -531,8 +548,17 @@ module Messaging = {
   @module("firebase-admin/messaging")
   external getMessaging: App.app => messaging = "getMessaging"
 
+  /// Sends a message to a specific device token. Binds to `messaging.send`.
   @send
-  external send: (messaging, message) => Promise.t<string> = "send"
+  external sendTokenMessage: (messaging, tokenMessage) => Promise.t<string> = "send"
+
+  /// Sends a message to a topic. Binds to `messaging.send`.
+  @send
+  external sendTopicMessage: (messaging, topicMessage) => Promise.t<string> = "send"
+
+  /// Sends a message to a condition. Binds to `messaging.send`.
+  @send
+  external sendConditionMessage: (messaging, conditionMessage) => Promise.t<string> = "send"
 
   @send
   external subscribeToTopic: (messaging, array<string>, string) => Promise.t<unit> =
