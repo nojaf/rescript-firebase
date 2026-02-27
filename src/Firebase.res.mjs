@@ -19,7 +19,11 @@ let Storage = {
 
 let Auth = {};
 
-let Messaging = {};
+let SW = {};
+
+let Messaging = {
+  SW: SW
+};
 
 export {
   App,

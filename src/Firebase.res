@@ -555,4 +555,16 @@ module Messaging = {
   /// https://firebase.google.com/docs/reference/js/messaging.md#onmessage
   @module("firebase/messaging")
   external onMessage: (messaging, messagePayload => unit) => unit => unit = "onMessage"
+
+  module SW = {
+    @module("firebase/messaging/sw")
+    external getMessaging: App.app => messaging = "getMessaging"
+
+    @module("firebase/messaging/sw")
+    external onBackgroundMessage: (messaging, messagePayload => unit) => unit => unit =
+      "onBackgroundMessage"
+
+    @module("firebase/messaging/sw")
+    external isSupported: unit => Promise.t<bool> = "isSupported"
+  }
 }

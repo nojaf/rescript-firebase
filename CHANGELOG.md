@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.9.0] - 2026-02-27
+
+### Added
+
+- `Firebase.Messaging.SW` submodule: `getMessaging`, `onBackgroundMessage`, `isSupported` bindings from `firebase/messaging/sw`.
+
 ## [0.8.0] - 2026-02-27
 
 ### Added
