@@ -518,7 +518,8 @@ module Messaging = {
 
   type message = {
     notification: notification,
-    token: string,
+    token?: string,
+    topic?: string,
     data?: dict<string>,
   }
 
@@ -532,6 +533,10 @@ module Messaging = {
 
   @send
   external send: (messaging, message) => Promise.t<string> = "send"
+
+  @send
+  external subscribeToTopic: (messaging, array<string>, string) => Promise.t<unit> =
+    "subscribeToTopic"
 }
 
 /// https://firebase.google.com/docs/reference/admin/node/firebase-admin.storage

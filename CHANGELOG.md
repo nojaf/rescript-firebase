@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.10.0] - 2026-02-27
+
+### Added
+
+- `FirebaseAdmin.Messaging`: `subscribeToTopic` binding.
+
+### Changed
+
+- **Breaking:** `FirebaseAdmin.Messaging.message.token` is now optional; added optional `topic` field for topic-based messaging.
+
 ## [0.9.0] - 2026-02-27
 
 ### Added
