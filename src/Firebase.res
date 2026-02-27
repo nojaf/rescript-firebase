@@ -15,7 +15,7 @@ type firebaseError = {
 }
 
 module App = {
-  @editor.completeFrom([Firestore, Functions, Auth, Storage])
+  @editor.completeFrom([Firestore, Functions, Auth, Storage, Messaging])
   type app
 
   @module("firebase/app")
@@ -508,4 +508,51 @@ module Auth = {
     ~email: string,
     ~password: string,
   ) => Promise.t<userCredential> = "signInWithEmailAndPassword"
+}
+
+module Messaging = {
+  /// https://firebase.google.com/docs/reference/js/messaging.messaging
+  type messaging
+
+  /// https://firebase.google.com/docs/reference/js/messaging.gettokenoptions
+  type getTokenOptions<'serviceWorkerRegistration> = {
+    vapidKey?: string,
+    serviceWorkerRegistration?: 'serviceWorkerRegistration,
+  }
+
+  /// https://firebase.google.com/docs/reference/js/messaging.notificationpayload
+  type notificationPayload = {
+    title?: string,
+    body?: string,
+    image?: string,
+    icon?: string,
+  }
+
+  /// https://firebase.google.com/docs/reference/js/messaging.fcmoptions
+  type fcmOptions = {
+    link?: string,
+    analyticsLabel?: string,
+  }
+
+  /// https://firebase.google.com/docs/reference/js/messaging.messagepayload
+  type messagePayload = {
+    notification?: notificationPayload,
+    data?: Dict.t<string>,
+    fcmOptions?: fcmOptions,
+    from: string,
+    collapseKey: string,
+    messageId: string,
+  }
+
+  /// https://firebase.google.com/docs/reference/js/messaging.md#getmessaging
+  @module("firebase/messaging")
+  external getMessaging: App.app => messaging = "getMessaging"
+
+  /// https://firebase.google.com/docs/reference/js/messaging.md#gettoken
+  @module("firebase/messaging")
+  external getToken: (messaging, getTokenOptions<'a>) => Promise.t<string> = "getToken"
+
+  /// https://firebase.google.com/docs/reference/js/messaging.md#onmessage
+  @module("firebase/messaging")
+  external onMessage: (messaging, messagePayload => unit) => unit => unit = "onMessage"
 }

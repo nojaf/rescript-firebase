@@ -19,11 +19,14 @@ let Storage = {
 
 let Auth = {};
 
+let Messaging = {};
+
 export {
   App,
   Firestore,
   Functions,
   Storage,
   Auth,
+  Messaging,
 }
 /* No side effect */

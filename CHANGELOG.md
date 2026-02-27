@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0] - 2026-02-27
+
+### Added
+
+- `Firebase.Messaging` module: `messaging`, `getTokenOptions`, `notificationPayload`, `fcmOptions`, `messagePayload` types.
+- `Firebase.Messaging`: `getMessaging`, `getToken`, `onMessage` bindings from `firebase/messaging`.
+
 ## [0.7.0] - 2026-02-27
 
 ### Added
