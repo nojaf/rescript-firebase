@@ -7,18 +7,47 @@ module Logger = {
   @module("firebase-functions") external logger: logger = "logger"
 
   @send
+  external debug: (logger, string, ~data: {..}=?) => unit = "debug"
+
+  @send
+  external log: (logger, string, ~data: {..}=?) => unit = "log"
+
+  @send
   external info: (logger, string, ~data: {..}=?) => unit = "info"
+
+  @send
+  external warn: (logger, string, ~data: {..}=?) => unit = "warn"
 
   @send
   external error: (logger, string, ~data: {..}=?) => unit = "error"
 }
 
 module Https = {
-  /// https://firebase.google.com/docs/reference/functions/2nd-gen/node/firebase-functions.https.callableoptions.md#httpscallableoptions_interface
-  type callableOptions = {region: string, allowedCors?: string, invoker?: string}
+  type httpsOptions = {
+    region?: string,
+    cors?: string,
+    memory?: string,
+    timeoutSeconds?: int,
+    minInstances?: int,
+    maxInstances?: int,
+    concurrency?: int,
+    invoker?: string,
+  }
+
+  type callableOptions = {
+    ...httpsOptions,
+    enforceAppCheck?: bool,
+    consumeAppCheckToken?: bool,
+  }
+
+  type authData = {uid: string, rawToken: string}
 
   /// https://firebase.google.com/docs/reference/functions/2nd-gen/node/firebase-functions.https.callablerequest.md#httpscallablerequest_interface
-  type callableRequest<'t> = {data: 't}
+  type callableRequest<'t> = {
+    data: 't,
+    auth: option<authData>,
+    acceptsStreaming: bool,
+  }
 
   /// https://firebase.google.com/docs/reference/functions/2nd-gen/node/firebase-functions.https.md#httpsoncall
   @module("firebase-functions/https")
@@ -31,11 +60,11 @@ module Https = {
 
   /// https://firebase.google.com/docs/reference/functions/2nd-gen/node/firebase-functions.https.md#httpsonrequest
   @module("firebase-functions/https")
-  external onRequest: (~opts: callableOptions, ~handler: Express.handler) => httpsFunction =
+  external onRequest: (~opts: httpsOptions, ~handler: Express.handler) => httpsFunction =
     "onRequest"
 
   @module("firebase-functions/https")
-  external onRequestApi: (~opts: callableOptions, ~handler: Express.express) => httpsFunction =
+  external onRequestApi: (~opts: httpsOptions, ~handler: Express.express) => httpsFunction =
     "onRequest"
 
   /// https://firebase.google.com/docs/reference/functions/2nd-gen/node/firebase-functions.https.httpserror
@@ -84,11 +113,26 @@ module Firestore = {
   @send
   external data: queryDocumentSnapshot<'documentdata> => 'documentdata = "data"
 
-  type firestoreEvent<'t> = {data: option<'t>}
+  type firestoreEvent<'t> = {
+    data: option<'t>,
+    id: string,
+    location: string,
+    project: string,
+    database: string,
+    namespace: string,
+    document: string,
+  }
+
+  type change<'t> = {
+    before: queryDocumentSnapshot<'t>,
+    after: queryDocumentSnapshot<'t>,
+  }
 
   type documentOptions = {
     document: string,
-    region: string,
+    region?: string,
+    database?: string,
+    namespace?: string,
   }
 
   /// https://firebase.google.com/docs/reference/functions/2nd-gen/node/firebase-functions.firestore.md#firestoreondocumentcreated
@@ -97,4 +141,22 @@ module Firestore = {
     ~opts: documentOptions,
     ~handler: firestoreEvent<queryDocumentSnapshot<'documentdata>> => Promise.t<unit>,
   ) => cloudFunction = "onDocumentCreated"
+
+  @module("firebase-functions/firestore")
+  external onDocumentUpdated: (
+    ~opts: documentOptions,
+    ~handler: firestoreEvent<change<'documentdata>> => Promise.t<unit>,
+  ) => cloudFunction = "onDocumentUpdated"
+
+  @module("firebase-functions/firestore")
+  external onDocumentDeleted: (
+    ~opts: documentOptions,
+    ~handler: firestoreEvent<queryDocumentSnapshot<'documentdata>> => Promise.t<unit>,
+  ) => cloudFunction = "onDocumentDeleted"
+
+  @module("firebase-functions/firestore")
+  external onDocumentWritten: (
+    ~opts: documentOptions,
+    ~handler: firestoreEvent<change<'documentdata>> => Promise.t<unit>,
+  ) => cloudFunction = "onDocumentWritten"
 }

@@ -1,5 +1,5 @@
 module App = {
-  @editor.completeFrom([Firestore, Auth, Storage])
+  @editor.completeFrom([Firestore, Auth, Messaging, Storage])
   type app
 
   type credential
@@ -505,6 +505,33 @@ module Auth = {
   /// https://firebase.google.com/docs/reference/admin/node/firebase-admin.auth.baseauth.md#baseauthrevokerefreshtoken
   @send
   external revokeRefreshTokens: (auth<'claims>, string) => Promise.t<unit> = "revokeRefreshTokens"
+}
+
+/// https://firebase.google.com/docs/reference/admin/node/firebase-admin.messaging
+module Messaging = {
+  type messaging
+
+  type notification = {
+    title: string,
+    body: string,
+  }
+
+  type message = {
+    notification: notification,
+    token: string,
+    data?: dict<string>,
+  }
+
+  type batchResponse = {
+    successCount: int,
+    failureCount: int,
+  }
+
+  @module("firebase-admin/messaging")
+  external getMessaging: App.app => messaging = "getMessaging"
+
+  @send
+  external send: (messaging, message) => Promise.t<string> = "send"
 }
 
 /// https://firebase.google.com/docs/reference/admin/node/firebase-admin.storage

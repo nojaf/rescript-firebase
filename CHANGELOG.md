@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.7.0] - 2026-02-27
+
+### Added
+
+- `FirebaseFunctions.Logger`: `debug`, `log`, `warn` methods.
+- `FirebaseFunctions.Https`: `httpsOptions` type with `cors`, `memory`, `timeoutSeconds`, `minInstances`, `maxInstances`, `concurrency` fields.
+- `FirebaseFunctions.Https`: `authData` type and expanded `callableRequest` with `auth` and `acceptsStreaming` fields.
+- `FirebaseFunctions.Https.callableOptions`: `enforceAppCheck` and `consumeAppCheckToken` fields.
+- `FirebaseFunctions.Firestore`: `change` type with `before`/`after` `queryDocumentSnapshot` fields.
+- `FirebaseFunctions.Firestore`: `onDocumentUpdated`, `onDocumentDeleted`, `onDocumentWritten` trigger functions.
+- `FirebaseFunctions.Firestore.firestoreEvent`: `id`, `location`, `project`, `database`, `namespace`, `document` fields.
+- `FirebaseFunctions.Firestore.documentOptions`: optional `database` and `namespace` fields.
+- `FirebaseAdmin.Messaging` module: `getMessaging`, `send`, `notification`, `message`, `batchResponse` types.
+
+### Changed
+
+- **Breaking:** `FirebaseFunctions.Https.onRequest` and `onRequestApi` now use `httpsOptions` instead of `callableOptions`.
+- **Breaking:** `FirebaseFunctions.Firestore.documentOptions.region` is now optional.
+
 ## [0.6.0] - 2026-02-19
 
 ### Added

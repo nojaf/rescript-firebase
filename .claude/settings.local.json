@@ -9,7 +9,8 @@
       "mcp__acp__Write",
       "Bash(npx rescript build:*)",
       "Skill(commit-msg)",
-      "Skill(commit-msg:*)"
+      "Skill(commit-msg:*)",
+      "Bash(npx rescript:*)"
     ]
   }
 }
